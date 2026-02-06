@@ -9,7 +9,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float currentSpeed;
     InputAction moveAction;
     InputAction shootAction;
-    [SerializeField] float waitTime = 0;
+    float waitTime = 0;
     float reloadTime = 0.5f;
     public GameObject Pizza;
 
@@ -17,7 +17,6 @@ public class PlayerController : MonoBehaviour
     {
         moveAction = InputSystem.actions.FindAction("Move");
         shootAction = InputSystem.actions.FindAction("Shoot");
-        waitTime = reloadTime;
     }
 
     // Update is called once per frame
@@ -45,11 +44,14 @@ public class PlayerController : MonoBehaviour
 
             if (waitTime >= reloadTime)
             {
-                var pizza = Instantiate(Pizza, transform.position, Quaternion.identity);
-                Destroy(pizza, 5);
+                Instantiate(Pizza, transform.position, Quaternion.identity);
                 
                 waitTime = 0;
             }
+        }
+        else
+        {
+            waitTime = reloadTime;
         }
     }
 
